@@ -1,30 +1,30 @@
 package com.edial.GestionAcademica.service;
-import com.edial.GestionAcademica.entities.Profesor;
-import com.edial.GestionAcademica.repositories.ProfesorRepository;
+import com.edial.GestionAcademica.entities.Profesores;
+import com.edial.GestionAcademica.repositories.ProfesoresRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProfesorService {
+public class ProfesoresService {
 
-	private final ProfesorRepository profesorRepository;
+	private final ProfesoresRepository profesoresRepository;
 
 	// Inyección de dependencias por constructor
 	@Autowired
-	public ProfesorService(ProfesorRepository profesorRepository) {
-		this.profesorRepository = profesorRepository;
+	public ProfesoresService(ProfesoresRepository profesoresRepository) {
+		this.profesoresRepository = profesoresRepository;
 	}
 
 	/**
 	 * Guarda un nuevo profesor.
-	 * @param nuevoProfesor El objeto Profesor a guardar.
+	 * @param nuevoProfesores El objeto Profesor a guardar.
 	 * @return El profesor guardado.
 	 */
-	public Profesor crearProfesor(Profesor nuevoProfesor) {
+	public Profesores crearProfesor(Profesores nuevoProfesores) {
 		// Lógica de negocio si es necesaria, por ejemplo, validaciones
-		return profesorRepository.save(nuevoProfesor);
+		return profesoresRepository.save(nuevoProfesores);
 	}
 
 	/**
@@ -32,27 +32,27 @@ public class ProfesorService {
 	 * @param codProfesor El código del profesor.
 	 * @return Un Optional que contiene el profesor si se encuentra, o vacío si no.
 	 */
-	public Optional<Profesor> obtenerProfesorPorId(String codProfesor) {
-		return profesorRepository.findById(codProfesor);
+	public Optional<Profesores> obtenerProfesorPorId(String codProfesor) {
+		return profesoresRepository.findById(codProfesor);
 	}
 
 	/**
 	 * Obtiene una lista de todos los profesores.
 	 * @return Una lista de objetos Profesor.
 	 */
-	public List<Profesor> obtenerTodosLosProfesores() {
-		return profesorRepository.findAll();
+	public List<Profesores> obtenerTodosLosProfesores() {
+		return profesoresRepository.findAll();
 	}
 
 	/**
 	 * Actualiza un profesor existente.
-	 * @param profesorActualizado El objeto Profesor con los datos actualizados.
+	 * @param profesoresActualizado El objeto Profesor con los datos actualizados.
 	 * @return El profesor actualizado.
 	 */
-	public Profesor actualizarProfesor(Profesor profesorActualizado) {
+	public Profesores actualizarProfesor(Profesores profesoresActualizado) {
 		// Se valida que el profesor exista antes de actualizar
-		if (profesorRepository.existsById(profesorActualizado.getCodProfesor())) {
-			return profesorRepository.save(profesorActualizado);
+		if (profesoresRepository.existsById(profesoresActualizado.getCodProfesor())) {
+			return profesoresRepository.save(profesoresActualizado);
 		}
 		// Puedes lanzar una excepción si el profesor no existe
 		return null;
@@ -63,6 +63,6 @@ public class ProfesorService {
 	 * @param codProfesor El código del profesor a eliminar.
 	 */
 	public void eliminarProfesor(String codProfesor) {
-		profesorRepository.deleteById(codProfesor);
+		profesoresRepository.deleteById(codProfesor);
 	}
 }

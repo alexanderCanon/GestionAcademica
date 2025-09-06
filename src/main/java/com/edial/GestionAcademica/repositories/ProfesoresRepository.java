@@ -1,10 +1,10 @@
 package com.edial.GestionAcademica.repositories;
 
-import com.edial.GestionAcademica.entities.Profesor;
+import com.edial.GestionAcademica.entities.Profesores;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProfesorRepository extends JpaRepository<Profesor, String> {
+public interface ProfesoresRepository extends JpaRepository<Profesores, String> {
 
 }

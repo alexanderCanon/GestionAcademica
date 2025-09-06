@@ -1,20 +1,20 @@
 package com.edial.GestionAcademica.entities;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 
 @Entity
-public class Curso {
+public class Cursos {
 
 	@Id
-	@Column(name = "cod_curso", length = 10)
-	private String codCurso;
+	@Column(name = "cod_curso", length = 10)  private String codCurso;
 
-	@Column(name = "nombre_materia", length = 100, nullable = false)
-	private String nombreMateria;
+	@Column(name = "nombre_materia", length = 100, nullable = false)  private String nombreMateria;
 
 	@Column(name = "creditos", nullable = false)
 	private Integer creditos;
+
+    @OneToMany
+    @JoinColumn(name = "cod_curso")
+    private Cursos prerequisito;
 
 	public String getCodCurso() {
 		return codCurso;
@@ -39,4 +39,12 @@ public class Curso {
 	public void setCreditos(Integer creditos) {
 		this.creditos = creditos;
 	}
+
+    public Cursos getPrerequisito() {
+        return prerequisito;
+    }
+
+    public void setPrerequisito(Cursos prerequisito) {
+        this.prerequisito = prerequisito;
+    }
 }

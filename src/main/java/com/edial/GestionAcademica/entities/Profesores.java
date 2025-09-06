@@ -4,7 +4,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 
 @Entity
-public class Profesor {
+public class Profesores {
 
 	@Id
 	@Column(name = "cod_profesor", length = 10)
@@ -15,6 +15,9 @@ public class Profesor {
 
 	@Column(name = "correo_electronico", length = 100, nullable = false, unique = true)
 	private String correoElectronico;
+
+    @Column(name = "telefono", length = 10, nullable = false)
+    private String telefono;
 
 	public String getCodProfesor() {
 		return codProfesor;
@@ -39,4 +42,12 @@ public class Profesor {
 	public void setCorreoElectronico(String correoElectronico) {
 		this.correoElectronico = correoElectronico;
 	}
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 }

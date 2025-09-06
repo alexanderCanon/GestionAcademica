@@ -1,6 +1,6 @@
 package com.edial.GestionAcademica.controller;
-import com.edial.GestionAcademica.entities.Profesor;
-import com.edial.GestionAcademica.service.ProfesorService;
+import com.edial.GestionAcademica.entities.Profesores;
+import com.edial.GestionAcademica.service.ProfesoresService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,13 +9,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/profesores")
-public class ProfesorController {
+public class ProfesoresController {
 
-	private final ProfesorService profesorService;
+	private final ProfesoresService profesoresService;
 
 	@Autowired
-	public ProfesorController(ProfesorService profesorService) {
-		this.profesorService = profesorService;
+	public ProfesoresController(ProfesoresService profesoresService) {
+		this.profesoresService = profesoresService;
 	}
 
 	/**
@@ -24,9 +24,9 @@ public class ProfesorController {
 	 * URL: POST /api/profesores
 	 */
 	@PostMapping
-	public ResponseEntity<Profesor> crearProfesor(@RequestBody Profesor nuevoProfesor) {
-		Profesor profesorCreado = profesorService.crearProfesor(nuevoProfesor);
-		return new ResponseEntity<>(profesorCreado, HttpStatus.CREATED);
+	public ResponseEntity<Profesores> crearProfesor(@RequestBody Profesores nuevoProfesores) {
+		Profesores profesoresCreado = profesoresService.crearProfesor(nuevoProfesores);
+		return new ResponseEntity<>(profesoresCreado, HttpStatus.CREATED);
 	}
 
 	/**
@@ -35,8 +35,8 @@ public class ProfesorController {
 	 * URL: GET /api/profesores
 	 */
 	@GetMapping
-	public ResponseEntity<List<Profesor>> obtenerTodosLosProfesores() {
-		List<Profesor> profesores = profesorService.obtenerTodosLosProfesores();
+	public ResponseEntity<List<Profesores>> obtenerTodosLosProfesores() {
+		List<Profesores> profesores = profesoresService.obtenerTodosLosProfesores();
 		return new ResponseEntity<>(profesores, HttpStatus.OK);
 	}
 
@@ -46,9 +46,9 @@ public class ProfesorController {
 	 * URL: GET /api/profesores/{codProfesor}
 	 */
 	@GetMapping("/{codProfesor}")
-	public ResponseEntity<Profesor> obtenerProfesorPorId(@PathVariable String codProfesor) {
-		return profesorService.obtenerProfesorPorId(codProfesor)
-				.map(profesor -> new ResponseEntity<>(profesor, HttpStatus.OK))
+	public ResponseEntity<Profesores> obtenerProfesorPorId(@PathVariable String codProfesor) {
+		return profesoresService.obtenerProfesorPorId(codProfesor)
+				.map(profesores -> new ResponseEntity<>(profesores, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
@@ -58,10 +58,10 @@ public class ProfesorController {
 	 * URL: PUT /api/profesores/{codProfesor}
 	 */
 	@PutMapping("/{codProfesor}")
-	public ResponseEntity<Profesor> actualizarProfesor(@PathVariable String codProfesor, @RequestBody Profesor profesorActualizado) {
+	public ResponseEntity<Profesores> actualizarProfesor(@PathVariable String codProfesor, @RequestBody Profesores profesoresActualizado) {
 		// Aseguramos que el ID del profesor a actualizar coincida con el del path
-		profesorActualizado.setCodProfesor(codProfesor);
-		Profesor resultado = profesorService.actualizarProfesor(profesorActualizado);
+		profesoresActualizado.setCodProfesor(codProfesor);
+		Profesores resultado = profesoresService.actualizarProfesor(profesoresActualizado);
 		if (resultado != null) {
 			return new ResponseEntity<>(resultado, HttpStatus.OK);
 		}
@@ -75,8 +75,8 @@ public class ProfesorController {
 	 */
 	@DeleteMapping("/{codProfesor}")
 	public ResponseEntity<Void> eliminarProfesor(@PathVariable String codProfesor) {
-		if (profesorService.obtenerProfesorPorId(codProfesor).isPresent()) {
-			profesorService.eliminarProfesor(codProfesor);
+		if (profesoresService.obtenerProfesorPorId(codProfesor).isPresent()) {
+			profesoresService.eliminarProfesor(codProfesor);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 No Content para borrado exitoso
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);

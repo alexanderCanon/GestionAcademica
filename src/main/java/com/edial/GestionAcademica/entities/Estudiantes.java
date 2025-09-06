@@ -8,7 +8,7 @@ import jakarta.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
-public class Estudiante {
+public class Estudiantes {
 
 	@Id
 	@Column(name = "carnet", length = 15)
